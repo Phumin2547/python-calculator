@@ -3,19 +3,48 @@ class Calculator:
         return a + b
 
     def subtract(self, a, b):
-        return b - a
+        return a - b
 
     def multiply(self, a, b):
         result = 0
-        for i in range(b+1):
+        negative = False
+
+    
+        if b < 0:
+            b = -b
+            negative = True
+        if a < 0:
+            a = -a
+            negative = not negative 
+
+        for _ in range(b):
             result = self.add(result, a)
+
+        if negative:
+            result = -result
+
         return result
 
     def divide(self, a, b):
+        if b == 0:
+            raise ZeroDivisionError("Cannot divide by zero")
+
         result = 0
-        while a > b:
+        negative = False
+
+        if a < 0:
+            a = -a
+            negative = not negative
+        if b < 0:
+            b = -b
+            negative = not negative
+        while a >= b:  
             a = self.subtract(a, b)
             result += 1
+
+        if negative:
+            result = -result
+
         return result
     
     def modulo(self, a, b):
